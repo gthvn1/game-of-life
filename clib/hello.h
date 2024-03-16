@@ -1,2 +1,2 @@
-int get_number(void);
-void say_hello(char *);
+int getNumber(void);
+void sayHello(char *);

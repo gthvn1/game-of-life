@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-int get_number() {
+int getNumber() {
   return 42;
 }
 
-void say_hello(char *name) {
+void sayHello(char *name) {
   printf("Hello %s !\n", name);
 }
