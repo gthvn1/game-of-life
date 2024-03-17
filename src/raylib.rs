@@ -3,13 +3,7 @@ use std::{
     os::raw::{c_char, c_int},
 };
 
-#[repr(C)]
-pub struct Color {
-    r: u8,
-    g: u8,
-    b: u8,
-    a: u8,
-}
+use crate::color::Color;
 
 extern "C" {
     fn InitWindow(w: c_int, h: c_int, title: *const c_char) -> c_void;
@@ -21,20 +15,6 @@ extern "C" {
     fn ClearBackground(c: Color) -> c_void;
     fn DrawText(text: *const c_char, x: c_int, y: c_int, fs: c_int, c: Color) -> c_void;
 }
-
-pub const RAYWHITE: Color = Color {
-    r: 245,
-    g: 245,
-    b: 245,
-    a: 255,
-};
-
-pub const LIGHTGRAY: Color = Color {
-    r: 200,
-    g: 200,
-    b: 200,
-    a: 255,
-};
 
 pub fn init_window(width: i32, height: i32, title: String) {
     let c_title = CString::new(title).unwrap();

@@ -1,21 +1,18 @@
+mod color;
 mod raylib;
 
+use crate::color::{LIGHTGRAY, RAYWHITE};
 use crate::raylib::{
     begin_drawing, clear_background, close_window, draw_text, end_drawing, init_window,
-    set_target_fps, window_should_close, LIGHTGRAY, RAYWHITE,
+    set_target_fps, window_should_close,
 };
 
 fn main() {
-    // Let's implement the Basic Window Raylib example...
-    //Initialization
+    // Let's implement raylib example
     const SCREEN_WIDTH: i32 = 800;
     const SCREEN_HEIGHT: i32 = 450;
 
-    init_window(
-        SCREEN_WIDTH,
-        SCREEN_HEIGHT,
-        "raylib [core] example - basic window".to_string(),
-    );
+    init_window(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib example".to_string());
 
     set_target_fps(60); // Set our game to run at 60 frames-per-second
 
