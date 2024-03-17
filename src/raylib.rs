@@ -56,7 +56,7 @@ pub fn set_target_fps(fps: i32) {
 }
 
 pub fn window_should_close() -> bool {
-    unsafe { WindowShouldClose() == 1 }
+    unsafe { WindowShouldClose() != 0 }
 }
 
 pub fn begin_drawing() {
