@@ -1,21 +1,20 @@
-mod color;
-mod raylib;
-mod rectangle;
+extern crate rust_raylib;
 
-use crate::raylib::{
+use rust_raylib::raylib_bindings::color;
+use rust_raylib::raylib_bindings::rectangle::Rectangle;
+use rust_raylib::raylib_bindings::{
     begin_drawing, clear_background, close_window, draw_rectangle_rec, draw_text, end_drawing,
     init_window, set_target_fps, window_should_close,
 };
-use crate::rectangle::Rectangle;
 
 fn main() {
     // Let's implement raylib example
     const SCREEN_WIDTH: i32 = 800;
     const SCREEN_HEIGHT: i32 = 450;
 
-    init_window(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib example".to_string());
-
     let rec: Rectangle = Rectangle::new(0.0, 0.0, 40.0, 40.0);
+
+    init_window(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib example".to_string());
 
     set_target_fps(60); // Set our game to run at 60 frames-per-second
 

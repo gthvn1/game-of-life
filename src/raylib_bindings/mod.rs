@@ -1,10 +1,13 @@
+pub mod color;
+pub mod rectangle;
+
 use std::{
     ffi::{c_void, CString},
     os::raw::{c_char, c_int},
 };
 
-use crate::color::Color;
-use crate::rectangle::Rectangle;
+use color::Color;
+use rectangle::Rectangle;
 
 extern "C" {
     fn InitWindow(w: c_int, h: c_int, title: *const c_char) -> c_void;
