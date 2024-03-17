@@ -6,16 +6,23 @@ pub struct Color {
     a: u8,
 }
 
-pub const RAYWHITE: Color = Color {
-    r: 245,
-    g: 245,
-    b: 245,
-    a: 255,
-};
-
 pub const LIGHTGRAY: Color = Color {
     r: 200,
     g: 200,
     b: 200,
+    a: 255,
+};
+
+pub const RED: Color = Color {
+    r: 255,
+    g: 0,
+    b: 0,
+    a: 255,
+};
+
+pub const RAYWHITE: Color = Color {
+    r: 245,
+    g: 245,
+    b: 245,
     a: 255,
 };

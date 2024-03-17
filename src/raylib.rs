@@ -4,6 +4,7 @@ use std::{
 };
 
 use crate::color::Color;
+use crate::rectangle::Rectangle;
 
 extern "C" {
     fn InitWindow(w: c_int, h: c_int, title: *const c_char) -> c_void;
@@ -14,6 +15,7 @@ extern "C" {
     fn WindowShouldClose() -> c_int;
     fn ClearBackground(c: Color) -> c_void;
     fn DrawText(text: *const c_char, x: c_int, y: c_int, fs: c_int, c: Color) -> c_void;
+    fn DrawRectangleRec(rec: Rectangle, color: Color) -> c_void;
 }
 
 pub fn init_window(width: i32, height: i32, title: String) {
@@ -62,4 +64,8 @@ pub fn draw_text(text: String, pos_x: i32, pos_y: i32, font_size: i32, color: Co
             color,
         )
     };
+}
+
+pub fn draw_rectangle_rec(rec: Rectangle, color: Color) {
+    unsafe { DrawRectangleRec(rec, color) };
 }
