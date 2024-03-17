@@ -1,5 +1,3 @@
-extern crate rust_raylib;
-
 use rust_raylib::raylib_bindings::color;
 use rust_raylib::raylib_bindings::rectangle::Rectangle;
 use rust_raylib::raylib_bindings::{
