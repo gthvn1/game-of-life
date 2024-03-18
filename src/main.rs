@@ -11,8 +11,50 @@ use rust_raylib::raylib_bindings::{
 };
 
 use rand::Rng;
+use rust_raylib::dynarr::{Cell, GameOfLife};
+use std::fs::File;
+use std::io::{BufRead, BufReader};
 
+#[allow(unreachable_code)]
 fn main() {
+    println!("We want to read the initial state from file");
+
+    let f = BufReader::new(File::open("input.gol").expect("open failed"));
+
+    let mut array: Vec<Cell> = Vec::new();
+    let mut array_width = 0;
+    let mut array_height = 0;
+
+    // initialiazing the vector and keep its width and height.
+    for line in f.lines() {
+        let l = line.unwrap();
+        if array_width != 0 {
+            if array_width != l.len() {
+                panic!("all lines must have the same lenght");
+            }
+        } else {
+            array_width = l.len();
+        }
+        for c in l.chars() {
+            match c {
+                '@' => array.push(Cell::Alive),
+                _ => array.push(Cell::Dead),
+            }
+        }
+        array_height += 1;
+    }
+
+    let mut da = GameOfLife::new(&array, array_width, array_height);
+
+    da.dump();
+
+    // Update once and check if it is ok
+    //da.update();
+    //da.dump();
+
+    /* skip the drawing part for now */
+    return;
+
     // Let's implement core_2d_camera.c (example)
     const SCREEN_WIDTH: i32 = 800;
     const SCREEN_HEIGHT: i32 = 450;
