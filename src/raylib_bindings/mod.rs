@@ -5,7 +5,7 @@ pub mod rectangle;
 pub mod vector2;
 
 use std::{
-    ffi::{c_void, CString},
+    ffi::{c_float, c_void, CString},
     os::raw::{c_char, c_int},
 };
 
@@ -24,6 +24,7 @@ extern "C" {
     fn DrawRectangleRec(rec: Rectangle, color: Color) -> c_void;
     fn EndDrawing() -> c_void;
     fn EndMode2D() -> c_void;
+    fn GetMouseWheelMove() -> c_float;
     fn InitWindow(w: c_int, h: c_int, title: *const c_char) -> c_void;
     fn IsKeyPressed(k: c_int) -> c_int;
     fn SetTargetFPS(fps: c_int) -> c_void;
@@ -85,6 +86,11 @@ pub fn end_drawing() {
 
 pub fn end_mode_2d() {
     unsafe { EndMode2D() };
+}
+
+pub fn get_mouse_wheel_move() -> f32 {
+    let v = unsafe { GetMouseWheelMove() };
+    v as f32
 }
 
 pub fn init_window(width: i32, height: i32, title: String) {

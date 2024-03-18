@@ -6,7 +6,7 @@ pub struct Camera2D {
     offset: Vector2,
     pub target: Vector2,
     rotation: f32,
-    zoom: f32,
+    pub zoom: f32,
 }
 
 impl Camera2D {

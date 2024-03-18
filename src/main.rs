@@ -1,5 +1,6 @@
 use rust_raylib::raylib_bindings::camera2d;
 use rust_raylib::raylib_bindings::color;
+use rust_raylib::raylib_bindings::get_mouse_wheel_move;
 use rust_raylib::raylib_bindings::keys::{KEY_LEFT, KEY_RIGHT};
 use rust_raylib::raylib_bindings::rectangle::Rectangle;
 use rust_raylib::raylib_bindings::vector2::Vector2;
@@ -55,17 +56,31 @@ fn main() {
     while !window_should_close()
     // Detect window close button or ESC key
     {
+        // Update
+        // --------------------------------------------------------------------
         // Player mouvement
-        if is_key_pressed(KEY_RIGHT) {
-            player.x += 2.0;
+        player.x += if is_key_pressed(KEY_RIGHT) {
+            10.0
         } else if is_key_pressed(KEY_LEFT) {
-            player.x -= 2.0;
-        }
+            -10.0
+        } else {
+            0.0
+        };
 
         // Camera target follows player
         camera.target = Vector2::new(player.x + 20.0, player.y + 20.0);
 
-        // Skip camera rotation for now so begin drawing ...
+        // Zoom according to mouse wheel
+        camera.zoom += get_mouse_wheel_move() * 0.05;
+        // don't allow all values for zooming
+        if camera.zoom > 3.0 {
+            camera.zoom = 3.0;
+        } else if camera.zoom < 0.1 {
+            camera.zoom = 0.1;
+        }
+
+        // Drawing
+        // --------------------------------------------------------------------
         begin_drawing();
 
         clear_background(color::RAYWHITE);
@@ -95,6 +110,7 @@ fn main() {
             camera.target.y as i32,
             color::GREEN,
         );
+
         end_mode_2d();
 
         draw_text("SCREEN AREA".to_string(), 640, 10, 20, color::RED);
