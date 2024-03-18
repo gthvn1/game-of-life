@@ -27,11 +27,11 @@ fn main() {
 
     for _ in 0..MAX_BUILDINGS {
         let width = rand::thread_rng().gen_range(50..=200);
-        let height = rand::thread_rng().gen_range(100..=100);
-        let y: f32 = SCREEN_HEIGHT as f32 - 130.0 - height as f32;
+        let height = rand::thread_rng().gen_range(100..=800);
         let x: f32 = -6000.0 + spacing as f32;
+        let y: f32 = SCREEN_HEIGHT as f32 - 130.0 - height as f32;
 
-        buildings.push(Rectangle::new(width as f32, height as f32, x, y));
+        buildings.push(Rectangle::new(x, y, width as f32, height as f32));
         buildings_color.push(color::Color::new(
             rand::thread_rng().gen_range(200..=240) as u8,
             rand::thread_rng().gen_range(200..=240) as u8,
