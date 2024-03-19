@@ -9,11 +9,27 @@ pub enum GofError {
     WrongWidth,
 }
 
-#[derive(Clone, Copy, Debug)]
-enum Cell {
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum CellState {
     Dead,
     Alive,
 }
+
+#[derive(Clone, Copy, Debug)]
+struct Cell {
+    state: CellState,
+    neighbors: usize, // number of neighbors
+}
+
+const DEAD_CELL: Cell = Cell {
+    state: CellState::Dead,
+    neighbors: 0,
+};
+
+const ALIVE_CELL: Cell = Cell {
+    state: CellState::Alive,
+    neighbors: 0,
+};
 
 pub struct GameOfLife {
     vptr: Vec<Cell>,
@@ -45,8 +61,8 @@ impl GameOfLife {
             }
             for c in l.chars() {
                 match c {
-                    '@' => array.push(Cell::Alive),
-                    _ => array.push(Cell::Dead),
+                    '@' => array.push(ALIVE_CELL),
+                    _ => array.push(DEAD_CELL),
                 }
             }
             height += 1;
@@ -63,9 +79,9 @@ impl GameOfLife {
         for y in 0..self.height {
             for x in 0..self.width {
                 if let Some(c) = self.get_idx(x.try_into().unwrap(), y.try_into().unwrap()) {
-                    match c {
-                        Cell::Dead => print!("."),
-                        Cell::Alive => print!("@"),
+                    match c.state {
+                        CellState::Dead => print!(".{} ", c.neighbors),
+                        CellState::Alive => print!("@{} ", c.neighbors),
                     }
                 }
             }
@@ -80,31 +96,67 @@ impl GameOfLife {
         //     - Any live cell with two or three live neighbors lives on to the next generation.
         //     - Any live cell with more than three live neighbors dies, as if by overpopulation.
         //     - Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+        //
+        // We will first upgrade the count of neighbors and then we will update the state of the
+        // Cell.
+
+        // Update the number of neighbors
+        for y in 0..self.height {
+            for x in 0..self.width {
+                // We use i32 because neighbors can be out of grid (that means no neighbor).
+                let x_i32: i32 = x.try_into().unwrap();
+                let y_i32: i32 = y.try_into().unwrap();
+                if let Some(c) = self.get_idx(x_i32, y_i32) {
+                    self.set_idx(
+                        x,
+                        y,
+                        Cell {
+                            state: c.state,
+                            neighbors: self.get_live_neighbors(x_i32, y_i32),
+                        },
+                    );
+                } else {
+                    unreachable!("at this point a cell must exist")
+                }
+            }
+        }
+
+        self.dump();
+
+        // Update the state according to rules
         for y in 0..self.height {
             for x in 0..self.width {
                 let x_i32: i32 = x.try_into().unwrap();
                 let y_i32: i32 = y.try_into().unwrap();
-                let neighbors = self.get_live_neighbors(x_i32, y_i32);
-                match self.get_idx(x_i32, y_i32) {
-                    Some(Cell::Alive) => {
-                        if !(2..=3).contains(&neighbors) {
-                            self.set_idx(x, y, Cell::Dead)
+                if let Some(c) = self.get_idx(x_i32, y_i32) {
+                    match c.state {
+                        CellState::Alive => {
+                            if !(2..=3).contains(&c.neighbors) {
+                                self.set_idx(x, y, DEAD_CELL);
+                            } else {
+                                self.set_idx(x, y, ALIVE_CELL);
+                            }
+                        }
+                        CellState::Dead => {
+                            if c.neighbors == 3 {
+                                self.set_idx(x, y, ALIVE_CELL);
+                            } else {
+                                self.set_idx(x, y, DEAD_CELL);
+                            }
                         }
                     }
-                    Some(Cell::Dead) => {
-                        if neighbors == 3 {
-                            self.set_idx(x, y, Cell::Alive)
-                        }
-                    }
-                    _ => {} // nothing to do
                 }
             }
         }
     }
 
     fn get_live_neighbor(&self, x: i32, y: i32) -> usize {
-        if let Some(Cell::Alive) = self.get_idx(x, y) {
-            1
+        if let Some(c) = self.get_idx(x, y) {
+            if c.state == CellState::Alive {
+                1
+            } else {
+                0
+            }
         } else {
             0
         }
