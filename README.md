@@ -18,7 +18,7 @@ C code. So the first step is to call a C function that is implemented in `clib/`
 Raylib can easly be compiled from [github:raylib](https://github.com/raysan5/raylib).
 Otherwise you can modify `build.rs` to fit your needs.
 
-- run: `cargo run`
+- run: `cargo run -- --fname examples/input.gol`
 
 ## Steps
 - [x] Start by implementing [Basic Window](https://www.raylib.com/examples/core/loader.html?name=core_basic_window)

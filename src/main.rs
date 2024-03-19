@@ -6,9 +6,21 @@ use rust_raylib::raylib_bindings::{color, draw_line};
 
 use rust_raylib::game_of_life::{CellState, GameOfLife};
 
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(version, about, long_about=None)]
+struct Args {
+    /// Filename of Game Of Life
+    #[arg(short, long)]
+    fname: String,
+}
+
 #[allow(unreachable_code)]
 fn main() {
-    let mut gof = GameOfLife::new("input.gol").unwrap();
+    let args = Args::parse();
+
+    let mut gof = GameOfLife::new(&args.fname).unwrap();
     let (game_width, game_height) = gof.get_size();
 
     let cell_width: i32 = 10;
