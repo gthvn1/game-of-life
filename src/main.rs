@@ -18,11 +18,12 @@ fn main() {
     println!("We want to read the initial state from file");
 
     let mut gof = GameOfLife::new("input.gol").unwrap();
+    println!("Initial state");
     gof.dump();
 
     // Update once and check if it is ok
-    for _ in 0..5 {
-        println!();
+    for i in 0..5 {
+        println!("Loop {}", i);
         gof.update();
         gof.dump();
     }

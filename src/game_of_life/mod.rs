@@ -121,6 +121,7 @@ impl GameOfLife {
             }
         }
 
+        println!("After computing neighbors...");
         self.dump();
 
         // Update the state according to rules
@@ -148,6 +149,8 @@ impl GameOfLife {
                 }
             }
         }
+
+        println!("Updating CellState done...");
     }
 
     fn get_live_neighbor(&self, x: i32, y: i32) -> usize {
@@ -176,7 +179,7 @@ impl GameOfLife {
         //      (x - 1, y + 1) - (x , y + 1 ) - (x + 1, y + 1)
 
         //
-        let up = self.get_live_neighbor(x, y + 1);
+        let up = self.get_live_neighbor(x, y - 1);
         let up_right = self.get_live_neighbor(x + 1, y - 1);
         let right = self.get_live_neighbor(x + 1, y);
         let down_right = self.get_live_neighbor(x + 1, y + 1);
