@@ -7,43 +7,16 @@ pub struct Color {
     a: u8,
 }
 
-pub const LIGHTGRAY: Color = Color {
-    r: 200,
-    g: 200,
-    b: 200,
-    a: 255,
-};
-
-pub const DARKGRAY: Color = Color {
-    r: 80,
-    g: 80,
-    b: 80,
-    a: 255,
-};
-
-pub const GREEN: Color = Color {
-    r: 0,
-    g: 255,
-    b: 0,
-    a: 255,
-};
-
-pub const RED: Color = Color {
-    r: 255,
-    g: 0,
-    b: 0,
-    a: 255,
-};
-
-pub const RAYWHITE: Color = Color {
-    r: 245,
-    g: 245,
-    b: 245,
-    a: 255,
-};
-
 impl Color {
-    pub fn new(r: u8, g: u8, b: u8, a: u8) -> Color {
+    const fn new(r: u8, g: u8, b: u8, a: u8) -> Color {
         Color { r, g, b, a }
     }
 }
+
+pub const BLACK: Color = Color::new(0, 0, 0, 255);
+pub const DARKGRAY: Color = Color::new(80, 80, 80, 255);
+pub const GREEN: Color = Color::new(0, 255, 0, 255);
+pub const LIGHTGRAY: Color = Color::new(200, 200, 200, 255);
+pub const RAYWHITE: Color = Color::new(245, 245, 245, 255);
+pub const RED: Color = Color::new(255, 0, 0, 255);
+pub const WHITE: Color = Color::new(255, 255, 255, 255);
