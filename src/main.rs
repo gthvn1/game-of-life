@@ -22,7 +22,7 @@ fn main() {
 
     init_window(screen_width, screen_height, "Game Of Life".to_string());
 
-    set_target_fps(5); // Set our game to run at 10 frames-per-second
+    set_target_fps(5); // Set our game to run at 5 frames-per-second
 
     // Main game loop
     // Detect window close button or ESC key
