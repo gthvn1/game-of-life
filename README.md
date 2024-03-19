@@ -23,7 +23,7 @@ Otherwise you can modify `build.rs` to fit your needs.
 ## Steps
 - [x] Start by implementing [Basic Window](https://www.raylib.com/examples/core/loader.html?name=core_basic_window)
 - [x] [2D camera](https://www.raylib.com/examples/core/loader.html?name=core_2d_camera) example
-- [x] wrote game of life but before...
+- [x] wrote game of life
 
 ## Screenshots
 
