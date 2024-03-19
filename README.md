@@ -21,3 +21,7 @@ Otherwise you can modify `builld.sh` to fit your needs.
 - [x] Start by implementing [Basic Window](https://www.raylib.com/examples/core/loader.html?name=core_basic_window)
 - [x] [2D camera](https://www.raylib.com/examples/core/loader.html?name=core_2d_camera) example
 - [x] wrote game of life but before...
+
+## Screenshots
+
+<img align="center" src="https://github.com/gthvn1/rust-raylib/blob/master/screenshots/first_try.png">
