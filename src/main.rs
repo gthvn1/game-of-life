@@ -22,8 +22,8 @@ fn main() {
     gof.dump();
 
     // Update once and check if it is ok
-    for i in 0..5 {
-        println!("Loop {}", i);
+    for _ in 0..10 {
+        println!();
         gof.update();
         gof.dump();
     }

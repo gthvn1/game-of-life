@@ -80,8 +80,10 @@ impl GameOfLife {
             for x in 0..self.width {
                 if let Some(c) = self.get_idx(x.try_into().unwrap(), y.try_into().unwrap()) {
                     match c.state {
-                        CellState::Dead => print!(".{} ", c.neighbors),
-                        CellState::Alive => print!("@{} ", c.neighbors),
+                        //CellState::Dead => print!(".{} ", c.neighbors),
+                        //CellState::Alive => print!("@{} ", c.neighbors),
+                        CellState::Dead => print!("."),
+                        CellState::Alive => print!("@"),
                     }
                 }
             }
@@ -121,8 +123,8 @@ impl GameOfLife {
             }
         }
 
-        println!("After computing neighbors...");
-        self.dump();
+        //println!("After computing neighbors...");
+        //self.dump();
 
         // Update the state according to rules
         for y in 0..self.height {
@@ -150,7 +152,7 @@ impl GameOfLife {
             }
         }
 
-        println!("Updating CellState done...");
+        //println!("Updating CellState done...");
     }
 
     fn get_live_neighbor(&self, x: i32, y: i32) -> usize {
