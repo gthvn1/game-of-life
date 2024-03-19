@@ -11,7 +11,7 @@ use rust_raylib::raylib_bindings::{
 };
 
 use rand::Rng;
-use rust_raylib::dynarr::GameOfLife;
+use rust_raylib::game_of_life::GameOfLife;
 
 #[allow(unreachable_code)]
 fn main() {
