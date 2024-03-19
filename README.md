@@ -24,4 +24,4 @@ Otherwise you can modify `builld.sh` to fit your needs.
 
 ## Screenshots
 
-<img align="center" src="https://github.com/gthvn1/rust-raylib/blob/master/screenshots/first_try.png">
+<img align="center" src="https://github.com/gthvn1/rust-raylib/blob/master/screenshots/more_complex.png">
