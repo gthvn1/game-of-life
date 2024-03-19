@@ -10,7 +10,7 @@ pub enum GofError {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-enum CellState {
+pub enum CellState {
     Dead,
     Alive,
 }
@@ -78,7 +78,7 @@ impl GameOfLife {
     pub fn dump(&self) {
         for y in 0..self.height {
             for x in 0..self.width {
-                if let Some(c) = self.get_idx(x.try_into().unwrap(), y.try_into().unwrap()) {
+                if let Some(c) = self.get_cell(x.try_into().unwrap(), y.try_into().unwrap()) {
                     match c.state {
                         //CellState::Dead => print!(".{} ", c.neighbors),
                         //CellState::Alive => print!("@{} ", c.neighbors),
@@ -108,8 +108,8 @@ impl GameOfLife {
                 // We use i32 because neighbors can be out of grid (that means no neighbor).
                 let x_i32: i32 = x.try_into().unwrap();
                 let y_i32: i32 = y.try_into().unwrap();
-                if let Some(c) = self.get_idx(x_i32, y_i32) {
-                    self.set_idx(
+                if let Some(c) = self.get_cell(x_i32, y_i32) {
+                    self.set_cell(
                         x,
                         y,
                         Cell {
@@ -131,20 +131,20 @@ impl GameOfLife {
             for x in 0..self.width {
                 let x_i32: i32 = x.try_into().unwrap();
                 let y_i32: i32 = y.try_into().unwrap();
-                if let Some(c) = self.get_idx(x_i32, y_i32) {
+                if let Some(c) = self.get_cell(x_i32, y_i32) {
                     match c.state {
                         CellState::Alive => {
                             if !(2..=3).contains(&c.neighbors) {
-                                self.set_idx(x, y, DEAD_CELL);
+                                self.set_cell(x, y, DEAD_CELL);
                             } else {
-                                self.set_idx(x, y, ALIVE_CELL);
+                                self.set_cell(x, y, ALIVE_CELL);
                             }
                         }
                         CellState::Dead => {
                             if c.neighbors == 3 {
-                                self.set_idx(x, y, ALIVE_CELL);
+                                self.set_cell(x, y, ALIVE_CELL);
                             } else {
-                                self.set_idx(x, y, DEAD_CELL);
+                                self.set_cell(x, y, DEAD_CELL);
                             }
                         }
                     }
@@ -155,8 +155,23 @@ impl GameOfLife {
         //println!("Updating CellState done...");
     }
 
+    pub fn get_size(&self) -> (i32, i32) {
+        (
+            self.width.try_into().unwrap(),
+            self.height.try_into().unwrap(),
+        )
+    }
+
+    pub fn get_state(&self, x: i32, y: i32) -> CellState {
+        if let Some(cell) = self.get_cell(x, y) {
+            cell.state
+        } else {
+            CellState::Dead
+        }
+    }
+
     fn get_live_neighbor(&self, x: i32, y: i32) -> usize {
-        if let Some(c) = self.get_idx(x, y) {
+        if let Some(c) = self.get_cell(x, y) {
             if c.state == CellState::Alive {
                 1
             } else {
@@ -193,12 +208,12 @@ impl GameOfLife {
         up + up_left + left + down_left + down + down_right + right + up_right
     }
 
-    fn set_idx(&mut self, x: usize, y: usize, c: Cell) {
+    fn set_cell(&mut self, x: usize, y: usize, c: Cell) {
         assert!(y * self.width + x < self.width * self.height);
         self.vptr[y * self.width + x] = c;
     }
 
-    fn get_idx(&self, x: i32, y: i32) -> Option<Cell> {
+    fn get_cell(&self, x: i32, y: i32) -> Option<Cell> {
         if x < 0
             || x >= self.width.try_into().unwrap()
             || y < 0
