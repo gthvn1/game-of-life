@@ -183,29 +183,14 @@ impl GameOfLife {
     }
 
     fn get_live_neighbors(&self, x: i32, y: i32) -> usize {
-        //    0 1 2 3 4
-        //  0 x x x x x
-        //  1 x x x x x
-        //  2 x x x x x
-        //  3 x x x x x
-        //
-        //
-        //
-        //      (x - 1, y - 1) - (x , y - 1 ) - (x + 1, y - 1)
-        //      (x - 1, y)     -    (x , y)   - (x + 1, y)
-        //      (x - 1, y + 1) - (x , y + 1 ) - (x + 1, y + 1)
-
-        //
-        let up = self.get_live_neighbor(x, y - 1);
-        let up_right = self.get_live_neighbor(x + 1, y - 1);
-        let right = self.get_live_neighbor(x + 1, y);
-        let down_right = self.get_live_neighbor(x + 1, y + 1);
-        let down = self.get_live_neighbor(x, y + 1);
-        let down_left = self.get_live_neighbor(x - 1, y + 1);
-        let left = self.get_live_neighbor(x - 1, y);
-        let up_left = self.get_live_neighbor(x - 1, y - 1);
-
-        up + up_left + left + down_left + down + down_right + right + up_right
+        self.get_live_neighbor(x, y - 1)
+            + self.get_live_neighbor(x + 1, y - 1)
+            + self.get_live_neighbor(x + 1, y)
+            + self.get_live_neighbor(x + 1, y + 1)
+            + self.get_live_neighbor(x, y + 1)
+            + self.get_live_neighbor(x - 1, y + 1)
+            + self.get_live_neighbor(x - 1, y)
+            + self.get_live_neighbor(x - 1, y - 1)
     }
 
     fn set_cell(&mut self, x: usize, y: usize, c: Cell) {
