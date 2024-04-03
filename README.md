@@ -1,7 +1,7 @@
-# Game of Life?
+# Game of Life
 
 Just play with [raylib](https://www.raylib.com/) and [rust](https://www.rust-lang.org/).
-Game of Life maybe be a goal, will see.
+Why not writing a Game of Life in Rust with Raylib bindings :)
 
 # Description of steps
 
