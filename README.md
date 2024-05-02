@@ -27,4 +27,4 @@ Otherwise you can modify `build.rs` to fit your needs.
 
 ## Screenshots
 
-<img align="center" src="https://github.com/gthvn1/rusty_gof/blob/master/screenshots/more_complex.png">
+<img align="center" src="https://github.com/gthvn1/rusty-gof/blob/master/screenshots/more_complex.png">
